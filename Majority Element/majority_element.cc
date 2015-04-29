@@ -9,13 +9,13 @@ public:
 
         for(int ix = 1; ix < nums.size(); ++ix) {
             if(num != nums[ix]) {
-                --count;
-                num = (count == 0 ? nums[ix] : num);
-                count = (count == 0 ? 1 : count);
+                --count;    // if the recorded number is not equal to the current element in vector
+                num = (count == 0 ? nums[ix] : num);  // then minus the counter, change the recorded number
+                count = (count == 0 ? 1 : count);   // to the current element and reset the counter
             } else {
                 ++count;
             }
-        }
+        }  // after doing the loop the num record the number that occur more than half times
 
         return num;
     }
