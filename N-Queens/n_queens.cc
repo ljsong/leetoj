@@ -33,7 +33,7 @@ private:
         }
     }
 
-    bool can_place(int row, int column, vector<pair<int, int> > board) {
+    bool can_place(int row, int column, const vector<pair<int, int> >& board) {
         for(int ix = 0; ix < board.size(); ++ix) {
             int placed_row = board[ix].first;
             int placed_column = board[ix].second;
