@@ -1,18 +1,31 @@
 #include <iostream>
+#include <set>
 using namespace std;
 
 class Solution {
 public:
     bool isHappy(int n) {
-        int result = 0;
+        long result = 0;
         int mod_result = 0;
-        while (n != 0) {
-            mod_result = n % 10;
-            n = n / 10; 
-            result += (mod_result * mod_result) % 9;
+        set<int> occured;
+
+        long num = n;
+        while(num != 1) {
+            result = 0;
+            while (num != 0) {
+                mod_result = num % 10;
+                num = num / 10; 
+                result += (mod_result * mod_result);
+            }
+            num = result;
+            if (occured.find(result) != occured.end()) {
+                break;
+            } else {
+                occured.insert(result);
+            }
         }
 
-        return (result % 9 == 1);
+        return (num == 1);
     }
 };
 
