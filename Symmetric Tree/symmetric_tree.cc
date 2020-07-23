@@ -11,17 +11,19 @@ struct TreeNode {
 class Solution {
 public:
     bool isSymmetric(TreeNode *root) {
-        if(root == NULL || (root->left == NULL && root->right == NULL)) {
+        return root ? isSymmetric(root->left, root->right) : true;
+    }
+
+    bool isSymmetric(TreeNode* left, TreeNode* right) {
+        if (left == nullptr && right == nullptr) {
             return true;
         }
 
-        bool left_symmetric = false, right_symmetric = false;
-        if(root->left->val == root->right->val) {
-            left_symmetric = isSymmetric(root->left);
-            right_symmetric = isSymmetric(root->right);
+        if (left == nullptr || right == nullptr) {
+            return false;
         }
-        
-        return left_symmetric && right_symmetric;
+
+        return left->val == right->val && isSymmetric(left->left, right->right) && isSymmetric(left->right, right->left);
     }
 };
 
@@ -29,7 +31,15 @@ int main() {
     Solution s;
     TreeNode *root = new TreeNode(1);
     TreeNode *left = new TreeNode(2);
-    TreeNode *right = new Tree(Node);
+    TreeNode *right = new TreeNode(2);
+
+    left->left = new TreeNode(2);
+    right->left = new TreeNode(2);
+
+    root->left = left;
+    root->right = right;
+
+    std::cout << s.isSymmetric(root) << std::endl;
 
     return 0;
 }
