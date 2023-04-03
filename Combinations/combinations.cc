@@ -13,6 +13,7 @@ public:
         }
 
         get_solution(1, k, n, nums, matrix);
+        return matrix;
     }
 
 private:

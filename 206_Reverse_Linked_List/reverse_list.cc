@@ -10,21 +10,21 @@ struct ListNode {
 class Solution {
 public:
     ListNode *reverseList(ListNode *head) {
-        if(head == NULL) {
+        if(head == nullptr || head->next == nullptr) {
             return head;
         }
         
-        ListNode *p = head, *q = p->next, *r = NULL;
-        p->next = NULL;
+        ListNode *new_head = nullptr;
+        ListNode *p = head, *prev = nullptr;
 
-        while(q != NULL) {
-            r = q->next;
-            q->next = p;
-            p = q;
-            q = r;
+        while(p != nullptr) {
+            prev = new_head;
+            new_head = p;
+            p = p->next;
+            new_head->next = prev;
         }
 
-        return p;
+        return new_head;
     }
 };
 
@@ -32,7 +32,7 @@ int main() {
     Solution s;
     ListNode *head = new ListNode(1);
     head->next = new ListNode(2);
-    //head->next->next = new ListNode(3);
+    head->next->next = new ListNode(3);
 
     ListNode *p = s.reverseList(head);
     while(p != NULL) {
