@@ -1,46 +1,34 @@
 #include <string>
 #include <iostream>
-using namespace std;
+#include <map>
+#include <vector>
 
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-        int length = s.length();
-        int* next = new int[length];
-        int k = -1, j = 0;
+    int lengthOfLongestSubstring(std::string s) {
+        int left = 0, right = 0;
+        int max_len = 0;
+        std::vector<int> dict(128, -1);
 
-        next[0] = -1;
-        while(j < length - 1) {
-            if (k == -1 || s[j] == s[k]) {
-                ++k;
-                ++j;
-                if (s[j] != s[k]) {
-                    next[j] = k;
-                } else {
-                    next[j] = next[k];
-                }
-            } else {
-                k = next[k];
+        for (int right = 0; right < s.size();) {
+            unsigned char ch = s[right];
+            if (dict[ch]++ != -1) {
+                left = left > dict[ch] ? left : dict[ch];
             }
+            dict[ch] = right++;
+            max_len = max_len > right - left? max_len : right - left;
         }
-
-        for (int ix = 0; ix < length; ++ix) {
-            std::cout << next[ix] << " ";
-        }
-        std::cout << std::endl;
-        delete[] next;
-
-        return 0;
+        return max_len;
     }
 };
 
 int main() {
-    Solution s;
-    string str;
+    std::string str;
     std::cout << "Input a string:" << std::endl;
 
     std::cin >> str;
-    s.lengthOfLongestSubstring(str);
+    std::cout << s.lengthOfLongestSubstring(str) << std::endl;
+
 
     return 0;
 }
