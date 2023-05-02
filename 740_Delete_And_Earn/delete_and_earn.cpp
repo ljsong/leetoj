@@ -12,6 +12,7 @@ public:
             counts[num] += num;
         }
 
+        // F(n) = max(F(n - 1), F(n - 2) + nums[n])
         int max_points = 0;
         for (auto iter = counts.begin(); iter != counts.end(); ++iter) {
             auto k = iter->first;
