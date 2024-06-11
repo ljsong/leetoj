@@ -19,7 +19,12 @@ public:
     }
 
     void put(int key, int value) {
-        if (data.size() >= capacity_) {
+        auto itr = data.find(key);
+        if (itr != data.end()) {
+            access_seq.splice(access_seq.cbegin(), access_seq, itr->second);
+            auto& item = access_seq.front();
+            item.second = value;
+        } else if (data.size() >= capacity_) {
             auto lru_item = access_seq.back();
             access_seq.pop_back();
             data.erase(lru_item.first);
@@ -27,17 +32,9 @@ public:
             access_seq.emplace_front(key, value);
             data[key] = access_seq.begin();
         } else {
-            auto itr = data.find(key);
-            if (itr != data.end()) {
-                // update access_seq
-                access_seq.splice(access_seq.cbegin(), access_seq, itr->second);
-                auto& item = access_seq.front();
-                item.second = value;
-            } else {
-                // new key will be appended
-                access_seq.emplace_front(key,value);
-                data[key] = access_seq.begin();
-            }
+            // new key will be appended
+            access_seq.emplace_front(key,value);
+            data[key] = access_seq.begin();
         }
     }
 
@@ -46,6 +43,7 @@ private:
     std::list<std::pair<int, int>> access_seq;
     std::unordered_map<int, std::list<std::pair<int, int>>::iterator> data;
 };
+
 
 /**
  * Your LRUCache object will be instantiated and called as such:
