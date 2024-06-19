@@ -43,14 +43,14 @@ public:
         }
         bool first_row_has_zero = false, first_col_has_zero = false;
         for (int ix = 0; ix < matrix[0].size(); ++ix) {
-            if (matrix[0][ix] != 0) {
+            if (matrix[0][ix] == 0) {
                 first_row_has_zero = true;
                 break;
             }
         }
 
         for (int ix = 0; ix < matrix.size(); ++ix) {
-            if (matrix[ix][0] != 0) {
+            if (matrix[ix][0] == 0) {
                 first_col_has_zero = true;
                 break;
             }
