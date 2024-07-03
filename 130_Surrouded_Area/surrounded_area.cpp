@@ -85,7 +85,6 @@ private:
 int main() {
     Solution s;
     std::vector<std::vector<char>> board = {{'X','O','X','O','X','O'},{'O','X','O','X','O','X'},{'X','O','X','O','X','O'},{'O','X','O','X','O','X'}};
-//    std::vector<std::vector<char>> board = {{'X', 'X', 'X', 'X'}, {'X', 'O', 'O', 'X'}, {'X', 'O', 'O', 'X'}, {'X', 'X', 'X', 'X'}};
     s.solve(board);
 
     for (int ix = 0; ix < board.size(); ++ix) {
