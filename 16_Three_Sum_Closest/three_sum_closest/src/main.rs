@@ -8,12 +8,17 @@ impl Solution {
         nums.sort();
         let mut closest_target = i32::MAX;
 
-        for ix in 0..nums.len() {
+        for ix in 0..nums.len() - 2 {
             let (mut low, mut high) = (ix + 1, nums.len() - 1);
             while low < high {
-                if nums[low] + nums[high] + nums[ix] < target {
+                let sum = nums[low] + nums[high] + nums[ix];
+
+                if (sum - target).abs() < (closest_target - target).abs() {
+                    closest_target = sum;
+                }
+                if sum < target {
                     low = low + 1;
-                } else if nums[low] + nums[high] + nums[ix] > target {
+                } else if sum > target {
                     high = high - 1;
                 } else {
                     return target;
@@ -33,8 +38,8 @@ mod tests {
 
     #[test]
     fn test_three_sum_closest() {
-        let nums = vec![-1, 2, 1, -4];
-        assert_eq!(Solution::three_sum_closest(nums, 1), 2);
+        let nums = vec![2, 3, 8, 9, 10];
+        assert_eq!(Solution::three_sum_closest(nums, 16), 15);
     }
 }
 
